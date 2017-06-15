@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: business_logic/dbQueries</title>
+    <title>JSDoc: Module: business_logic/typeOfMotion</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: business_logic/dbQueries</h1>
+    <h1 class="page-title">Module: business_logic/typeOfMotion</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">This module includes all database queries and the helper methods which are used to create a final database query.</div>
+            <div class="description">This module returns the type of motion which can be: stationary, pedestrian, vehicular or high-speed-vehicular.</div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="business_logic_v5.1_dbQueries.js.html">business_logic/v5.1/dbQueries.js</a>, <a href="business_logic_v5.1_dbQueries.js.html#line1">line 1</a>
+        <a href="business_logic_v5.1_typeOfMotion.js.html">business_logic/v5.1/typeOfMotion.js</a>, <a href="business_logic_v5.1_typeOfMotion.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -137,14 +137,14 @@
 
     
 
-    <h4 class="name" id="~makeMultipoints"><span class="type-signature">(inner) </span>makeMultipoints<span class="signature">(positions)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="~getTypeOfMotion"><span class="type-signature">(inner) </span>getTypeOfMotion<span class="signature">(speed)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns an array of positions in the required format for parametrized queries, in this case'MULTIPOINT(longitude1 latitude1, longitude2 latitude2)'
+    Function which returns the type of motion for a velocity in kilometers per hour.
 </div>
 
 
@@ -180,13 +180,13 @@
 
         <tr>
             
-                <td class="name"><code>positions</code></td>
+                <td class="name"><code>speed</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">number</span>
 
 
             
@@ -196,7 +196,7 @@
 
             
 
-            <td class="description last">positions which should be changed into format 'MULTIPOINT(longitude1 latitude1, longitude2 latitude2)',array must contain at least two positions</td>
+            <td class="description last">speed in kilometers per hour which should be the result of getVelocity from velocity</td>
         </tr>
 
     
@@ -237,165 +237,19 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="business_logic_v5.1_dbQueries.js.html">business_logic/v5.1/dbQueries.js</a>, <a href="business_logic_v5.1_dbQueries.js.html#line276">line 276</a>
+        <a href="business_logic_v5.1_typeOfMotion.js.html">business_logic/v5.1/typeOfMotion.js</a>, <a href="business_logic_v5.1_typeOfMotion.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
     
 
     
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    array with correct formatted strings
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>business_logic/velocity</li>
+        </ul>
     </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~makePoints"><span class="type-signature">(inner) </span>makePoints<span class="signature">(positions)</span><span class="type-signature"> &rarr; {Array}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns an array of positions in the required format for parametrized queries, in this case 'POINT(longitude latitude)'
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>positions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">positions which should be changed into format 'POINT(longitude latitude)'</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="business_logic_v5.1_dbQueries.js.html">business_logic/v5.1/dbQueries.js</a>, <a href="business_logic_v5.1_dbQueries.js.html#line253">line 253</a>
-    </li></ul></dd>
-    
-
-    
-
     
 
     
@@ -417,7 +271,7 @@
 
         
 <div class="param-desc">
-    array with correct formatted strings
+    an object with id, name and description
 </div>
 
 
@@ -428,7 +282,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Array</span>
+<span class="param-type">object</span>
 
 
     </dd>

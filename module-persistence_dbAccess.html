@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: business_logic/dbQueries</title>
+    <title>JSDoc: Module: persistence/dbAccess</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: business_logic/dbQueries</h1>
+    <h1 class="page-title">Module: persistence/dbAccess</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">This module includes all database queries and the helper methods which are used to create a final database query.</div>
+            <div class="description">This module is responsible for querying the postgres-database.</div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="business_logic_v5.1_dbQueries.js.html">business_logic/v5.1/dbQueries.js</a>, <a href="business_logic_v5.1_dbQueries.js.html#line1">line 1</a>
+        <a href="persistence_dbAccess_v5.js.html">persistence/dbAccess_v5.js</a>, <a href="persistence_dbAccess_v5.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -137,14 +137,14 @@
 
     
 
-    <h4 class="name" id="~makeMultipoints"><span class="type-signature">(inner) </span>makeMultipoints<span class="signature">(positions)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="~queryMultiple"><span class="type-signature">(inner) </span>queryMultiple<span class="signature">(statement, variables, callback)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Returns an array of positions in the required format for parametrized queries, in this case'MULTIPOINT(longitude1 latitude1, longitude2 latitude2)'
+    queries the database with multiple variations of a single statement in parallel.
 </div>
 
 
@@ -180,7 +180,30 @@
 
         <tr>
             
-                <td class="name"><code>positions</code></td>
+                <td class="name"><code>statement</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">statement a placeholder like $1 $2 $3</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>variables</code></td>
             
 
             <td class="type">
@@ -196,7 +219,30 @@
 
             
 
-            <td class="description last">positions which should be changed into format 'MULTIPOINT(longitude1 latitude1, longitude2 latitude2)',array must contain at least two positions</td>
+            <td class="description last">array containing a values for every query like [ [VAR1_1.1, VAR1_1.2, VAR1_1.3],[VAR1_2.1, VAR1_2.2, VAR1_2.3], [VAR1_3.1, VAR1_3.2, VAR1_3.3] ] which returns in 3 queries.Use makePoints or makeMultipoints to fit the required form.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">function which will be called with the result of type (error, array)</td>
         </tr>
 
     
@@ -237,7 +283,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="business_logic_v5.1_dbQueries.js.html">business_logic/v5.1/dbQueries.js</a>, <a href="business_logic_v5.1_dbQueries.js.html#line276">line 276</a>
+        <a href="persistence_dbAccess_v5.js.html">persistence/dbAccess_v5.js</a>, <a href="persistence_dbAccess_v5.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -260,28 +306,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    array with correct formatted strings
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -290,14 +314,14 @@
 
     
 
-    <h4 class="name" id="~makePoints"><span class="type-signature">(inner) </span>makePoints<span class="signature">(positions)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="~singleQuery"><span class="type-signature">(inner) </span>singleQuery<span class="signature">(statement, variables, callback)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Returns an array of positions in the required format for parametrized queries, in this case 'POINT(longitude latitude)'
+    queries the database with a parametrized query.
 </div>
 
 
@@ -333,7 +357,30 @@
 
         <tr>
             
-                <td class="name"><code>positions</code></td>
+                <td class="name"><code>statement</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">statement with placeholders like $1 $2 $3</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>variables</code></td>
             
 
             <td class="type">
@@ -349,7 +396,30 @@
 
             
 
-            <td class="description last">positions which should be changed into format 'POINT(longitude latitude)'</td>
+            <td class="description last">array containing a value for every placeholder like [ VAR_1, VAR_2, VAR3 ].Use makePoints or makeMultipoints to fit the required form.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">function which will be called with the result of type (error, array)</td>
         </tr>
 
     
@@ -390,7 +460,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="business_logic_v5.1_dbQueries.js.html">business_logic/v5.1/dbQueries.js</a>, <a href="business_logic_v5.1_dbQueries.js.html#line253">line 253</a>
+        <a href="persistence_dbAccess_v5.js.html">persistence/dbAccess_v5.js</a>, <a href="persistence_dbAccess_v5.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -413,28 +483,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    array with correct formatted strings
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
